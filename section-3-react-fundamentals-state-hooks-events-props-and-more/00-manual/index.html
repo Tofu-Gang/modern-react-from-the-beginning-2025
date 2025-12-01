@@ -5,16 +5,25 @@
     <title>Section 3: React Fundamentals - State, hooks, events, props & more</title>
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 </head>
 <body>
     <div id="root"></div>
 
-    <script>
+    <script type="text/babel">
         function App() {
-            return React.createElement(
-                "div", null,
-                React.createElement(Header),
-                React.createElement("h2", null, "This was done manually"));
+            const name = "John";
+            const member = true;
+
+            return (
+                <div>
+                    <Header />
+                    <h2 className="title">This was done manually</h2>
+                    <label htmlFor="title">Title</label>
+                    <h3>Hello, {name}</h3>
+                    {member ? <p>Welcome Back!</p> : <p>Join Us</p>}
+                </div>
+            );
         }
 
         function Header() {
