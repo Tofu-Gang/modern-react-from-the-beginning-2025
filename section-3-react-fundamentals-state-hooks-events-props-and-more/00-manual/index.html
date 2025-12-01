@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Section 3: React Fundamentals - State, hooks, events, props & more</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script>
+        function App() {
+            return React.createElement(
+                "div", null,
+                React.createElement(Header),
+                React.createElement("h2", null, "This was done manually"));
+        }
+
+        function Header() {
+            return React.createElement("header", null, React.createElement("h1", null, "Section 3: React Fundamentals - State, hooks, events, props & more"));
+        }
+
+        const container = document.getElementById("root");
+        const root = ReactDOM.createRoot(container);
+        root.render(React.createElement(App));
+    </script>
+</body>
+</html>
