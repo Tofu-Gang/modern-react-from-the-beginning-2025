@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Star from "./Star.jsx";
 
 function Rating(
     {
@@ -8,24 +9,32 @@ function Rating(
     }) {
     const [rating, setRating] = useState(0);
     const [hover, setHover] = useState(0);
-    const stars = Array.from({length: 5}, (_, index) => index + 1);
+    const stars = Array.from({length: feedbackMessages.length}, (_, index) => index + 1);
+
+    function setHoverEnter(star) {
+        setHover(star)
+    }
+
+    function setHoverLeave() {
+        setHover(0);
+    }
+
+    function getStarColor(star) {
+        return star <= (hover || rating) ? color : "#ccc";
+    }
 
     return(
         <div className="rating-container">
             <h2>{heading}</h2>
             <div className="stars">
                 {stars.map((star) => (
-                    <span
+                    <Star
                         key={star}
-                        className="star"
-                        onClick={() => setRating(star)}
-                        onMouseEnter={() => setHover(star)}
-                        onMouseLeave={() => setHover(0)}
-                        style={{
-                            color: star <= (hover || rating) ? color : "#ccc"
-                        }}
-                    >{"\u2605"}
-                    </span>)
+                        color={getStarColor(star)}
+                        setRating={() => setRating(star)}
+                        setHoverEnter={() => setHoverEnter(star)}
+                        setHoverLeave={setHoverLeave} />
+                    )
                 )}
             </div>
             { rating > 0 && <p className="feedback">{ feedbackMessages[rating - 1]}</p>}
