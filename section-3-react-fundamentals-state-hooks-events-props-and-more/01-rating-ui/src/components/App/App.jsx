@@ -1,6 +1,8 @@
+import Rating from "../Rating/Rating.jsx";
+
 function App() {
 
-  return <div>Rate Your Experience</div>;
+  return <Rating />;
 }
 
 export default App
