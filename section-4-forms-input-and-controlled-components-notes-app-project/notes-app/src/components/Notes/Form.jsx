@@ -53,7 +53,7 @@ function Form({ data, setNotes }) {
                         mb-4"
                     onClick={() => setFormVisible((current) => !current)}
             >
-                { isFormVisible ? "Hide Form ✖️" : "Add New Note ➕" }
+                { isFormVisible ? "Hide Form ✖️" : "Add New Notes ➕" }
             </button>
             { isFormVisible && (
                 <form onSubmit={handleSubmit} className="mb-6 ">

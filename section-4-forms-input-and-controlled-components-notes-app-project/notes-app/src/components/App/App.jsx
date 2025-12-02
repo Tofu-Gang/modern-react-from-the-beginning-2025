@@ -1,7 +1,7 @@
 import { useState } from "react";
-import Data from "../Note/data.js";
-import Form from "../Note/Form.jsx";
-import List from "../Note/List.jsx";
+import Data from "../Notes/data.js";
+import Form from "../Notes/Form.jsx";
+import List from "../Notes/List.jsx";
 
 function App() {
     const [notes, setNotes] = useState([]);
