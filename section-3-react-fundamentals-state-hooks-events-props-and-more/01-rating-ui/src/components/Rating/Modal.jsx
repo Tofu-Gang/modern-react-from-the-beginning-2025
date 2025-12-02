@@ -1,10 +1,12 @@
+import Button from "./Button.jsx";
+
 function Modal({ message, info, closeModal }) {
     return (
         <div className="modal-overlay">
             <div className="modal">
                 <h2>{message}</h2>
                 <p>{info}</p>
-                <button className="close-btn" onClick={closeModal}>Close</button>
+                <Button className="close-btn" onClick={closeModal}>Close</Button>
             </div>
         </div>
     );

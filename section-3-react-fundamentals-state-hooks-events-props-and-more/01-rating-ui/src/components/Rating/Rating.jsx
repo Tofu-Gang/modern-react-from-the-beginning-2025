@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Star from "./Star.jsx";
 import Modal from "./Modal.jsx";
+import Button from "./Button.jsx";
 
 function Rating(
     {
@@ -52,7 +53,7 @@ function Rating(
                 )}
             </div>
             { rating > 0 && <p className="feedback">{ feedbackMessages[rating - 1]}</p>}
-            <button className="submit-btn" onClick={handleSubmit} disabled={rating === 0}>Submit</button>
+            <Button className="submit-btn" onClick={handleSubmit} disabled={rating === 0}>Submit</Button>
             {submitted && <Modal
                 message="Thank You"
                 info={`You rated us ${rating} star${rating > 1 ? "s" : ""}`}
