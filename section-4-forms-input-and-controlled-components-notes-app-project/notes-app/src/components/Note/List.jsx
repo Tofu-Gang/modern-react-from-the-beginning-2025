@@ -1,4 +1,8 @@
-function List({ notes, deleteNote }) {
+function List({ notes, deleteNote, priorities }) {
+    function getColor(value) {
+        return priorities.filter((priority) => priority.value === value)[0].color
+    }
+
     if(notes.length === 0) {
         return <p className="text-center text-gray-500">No Notes Yet</p>;
     } else {
@@ -7,7 +11,7 @@ function List({ notes, deleteNote }) {
                 {notes.map((note) => (
                     <div
                         key={note.id}
-                        className="p-4 bg-white rounded-lg shadow-md border-l-4"
+                        className={`p-4 bg-white rounded-lg shadow-md border-l-4 border-${getColor(note.priority)}`}
                     >
                         <h3 className="text-lg font-bold">{note.title}</h3>
                         <p className="text-sm text-gray-600">
