@@ -3,20 +3,40 @@ import TextInput from "./TextInput.jsx";
 import Select from "./Select.jsx";
 import TextArea from "./TextArea.jsx";
 
-function Form({ data }) {
-    const [formData, setFormData] = useState({
+function Form({ data, notes, setNotes }) {
+    const defaultFormData = {
         title: "",
         priority: data.priorities.filter((priority) => priority.default)[0].value,
         category: data.categories.filter((category) => category.default)[0].value,
         description: ""
-    });
+    };
+    const [formData, setFormData] = useState(defaultFormData);
+
+    function resetFormData() {
+        setFormData(defaultFormData);
+    }
 
     function handleChange(event) {
         setFormData((current) => ({ ...current, [event.target.name]: event.target.value}));
     }
 
+    function handleSubmit(event) {
+        event.preventDefault();
+        if(!formData.title || !formData.priority || !formData.category || !formData.description) {
+            // form data are not valid
+            return;
+        } else {
+            setNotes((current) => ([
+                ...current, {
+                id: self.crypto.randomUUID(),
+                ...formData
+            }]));
+            resetFormData();
+        }
+    }
+
     return (
-        <form className="mb-6 ">
+        <form onSubmit={handleSubmit} className="mb-6 ">
             <TextInput
                 name="title"
                 labelText="Title"
