@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Star from "./Star.jsx";
+import Modal from "./Modal.jsx";
 
 function Rating(
     {
@@ -9,6 +10,7 @@ function Rating(
     }) {
     const [rating, setRating] = useState(0);
     const [hover, setHover] = useState(0);
+    const [submitted, setSubmitted] = useState(false);
     const stars = Array.from({length: feedbackMessages.length}, (_, index) => index + 1);
 
     function setHoverEnter(star) {
@@ -21,6 +23,18 @@ function Rating(
 
     function getStarColor(star) {
         return star <= (hover || rating) ? color : "#ccc";
+    }
+
+    function handleSubmit() {
+        if(rating > 0) {
+            setSubmitted(true);
+        }
+    }
+
+    function closeModal() {
+        setSubmitted(false);
+        setRating(0);
+        setHover(0);
     }
 
     return(
@@ -38,6 +52,12 @@ function Rating(
                 )}
             </div>
             { rating > 0 && <p className="feedback">{ feedbackMessages[rating - 1]}</p>}
+            <button className="submit-btn" onClick={handleSubmit} disabled={rating === 0}>Submit</button>
+            {submitted && <Modal
+                message="Thank You"
+                info={`You rated us ${rating} star${rating > 1 ? "s" : ""}`}
+                closeModal={closeModal}
+            />}
         </div>
     );
 }
