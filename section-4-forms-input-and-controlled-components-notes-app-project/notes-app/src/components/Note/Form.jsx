@@ -3,7 +3,7 @@ import TextInput from "./TextInput.jsx";
 import Select from "./Select.jsx";
 import TextArea from "./TextArea.jsx";
 
-function Form({ data, notes, setNotes }) {
+function Form({ data, setNotes }) {
     const defaultFormData = {
         title: "",
         priority: data.priorities.filter((priority) => priority.default)[0].value,
@@ -36,41 +36,44 @@ function Form({ data, notes, setNotes }) {
     }
 
     return (
-        <form onSubmit={handleSubmit} className="mb-6 ">
-            <TextInput
-                name="title"
-                labelText="Title"
-                value={formData.title}
-                onChange={handleChange}
-                required
-            />
-            <Select
-                name="priority"
-                labelText="Priority"
-                value={formData.priority}
-                onChange={handleChange}
-                options={data.priorities}
-                required
-            />
-            <Select
-                name="category"
-                labelText="Category"
-                value={formData.category}
-                onChange={handleChange}
-                options={data.categories}
-                required
-            />
-            <TextArea
-                name="description"
-                labelText="Description"
-                value={formData.description}
-                onChange={handleChange}
-                required
-            />
-            <button
-                className="w-full bg-purple-500 text-white py-2 rounded-lg cursor-pointer hover:bg-purple-600"
-            >Add Note</button>
-        </form>
+        <>
+            <form onSubmit={handleSubmit} className="mb-6 ">
+                <TextInput
+                    name="title"
+                    labelText="Title"
+                    value={formData.title}
+                    onChange={handleChange}
+                    required
+                />
+                <Select
+                    name="priority"
+                    labelText="Priority"
+                    value={formData.priority}
+                    onChange={handleChange}
+                    options={data.priorities}
+                    required
+                />
+                <Select
+                    name="category"
+                    labelText="Category"
+                    value={formData.category}
+                    onChange={handleChange}
+                    options={data.categories}
+                    required
+                />
+                <TextArea
+                    name="description"
+                    labelText="Description"
+                    value={formData.description}
+                    onChange={handleChange}
+                    required
+                />
+                <button
+                    className="w-full bg-purple-500 text-white py-2 rounded-lg cursor-pointer hover:bg-purple-600"
+                    type="submit"
+                >Add Note</button>
+            </form>
+        </>
     );
 }
 
