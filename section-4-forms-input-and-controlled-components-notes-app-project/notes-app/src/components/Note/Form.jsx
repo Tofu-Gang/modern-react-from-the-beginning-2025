@@ -11,6 +11,7 @@ function Form({ data, setNotes }) {
         description: ""
     };
     const [formData, setFormData] = useState(defaultFormData);
+    const [isFormVisible, setFormVisible] = useState(false);
 
     function resetFormData() {
         setFormData(defaultFormData);
@@ -37,42 +38,61 @@ function Form({ data, setNotes }) {
 
     return (
         <>
-            <form onSubmit={handleSubmit} className="mb-6 ">
-                <TextInput
-                    name="title"
-                    labelText="Title"
-                    value={formData.title}
-                    onChange={handleChange}
-                    required
-                />
-                <Select
-                    name="priority"
-                    labelText="Priority"
-                    value={formData.priority}
-                    onChange={handleChange}
-                    options={data.priorities}
-                    required
-                />
-                <Select
-                    name="category"
-                    labelText="Category"
-                    value={formData.category}
-                    onChange={handleChange}
-                    options={data.categories}
-                    required
-                />
-                <TextArea
-                    name="description"
-                    labelText="Description"
-                    value={formData.description}
-                    onChange={handleChange}
-                    required
-                />
-                <button
-                    className="w-full bg-purple-500 text-white py-2 rounded-lg cursor-pointer hover:bg-purple-600"
-                    type="submit"
-                >Add Note</button>
-            </form>
+            <button className=
+                        "w-full
+                        bg-gray-100
+                        border
+                        border-gray-300
+                        text-purple-800
+                        py-2
+                        rounded-lg
+                        cursor-pointer
+                        hover:bg-purple-200
+                        hover:border-purple-300
+                        transition
+                        mb-4"
+                    onClick={() => setFormVisible((current) => !current)}
+            >
+                { isFormVisible ? "Hide Form ✖️" : "Add New Note ➕" }
+            </button>
+            { isFormVisible && (
+                <form onSubmit={handleSubmit} className="mb-6 ">
+                    <TextInput
+                        name="title"
+                        labelText="Title"
+                        value={formData.title}
+                        onChange={handleChange}
+                        required
+                    />
+                    <Select
+                        name="priority"
+                        labelText="Priority"
+                        value={formData.priority}
+                        onChange={handleChange}
+                        options={data.priorities}
+                        required
+                    />
+                    <Select
+                        name="category"
+                        labelText="Category"
+                        value={formData.category}
+                        onChange={handleChange}
+                        options={data.categories}
+                        required
+                    />
+                    <TextArea
+                        name="description"
+                        labelText="Description"
+                        value={formData.description}
+                        onChange={handleChange}
+                        required
+                    />
+                    <button
+                        className="w-full bg-purple-500 text-white py-2 rounded-lg cursor-pointer hover:bg-purple-600"
+                        type="submit"
+                    >Add Note</button>
+                </form>
+            )}
         </>
     );
 }
