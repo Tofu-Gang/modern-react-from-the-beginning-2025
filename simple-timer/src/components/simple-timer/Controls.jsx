@@ -1,8 +1,20 @@
+import { useEffect, useRef } from "react";
+
 function Controls({ toggleTimer, isRunning, resetTimer}) {
+    const startButtonRef = useRef(null);
+    useEffect(() => {
+        if(startButtonRef.current) {
+            startButtonRef.current.focus();
+        }
+    }, [])
+
     return (
         <>
             <button
-                onClick={toggleTimer} className="mt-3 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 mr-3">
+                onClick={toggleTimer}
+                className="mt-3 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 mr-3"
+                ref={startButtonRef}
+            >
                 {isRunning ? "Pause" : "Start"}
             </button>
             <button
