@@ -1,7 +1,9 @@
+import Timer from "./simple-timer/Timer.jsx";
+
 function App() {
 
   return (
-    <h1>My App</h1>
+    <Timer />
   )
 }
 
