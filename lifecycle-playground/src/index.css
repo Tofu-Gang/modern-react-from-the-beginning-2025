@@ -1,0 +1,65 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Container Styling */
+.container {
+    text-align: center;
+    width: 350px;
+    margin: 10px;
+}
+
+/* Buttons */
+button {
+    margin-top: 10px;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+.primary-btn {
+    background: #007bff;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.secondary-btn {
+    background: #28a745;
+    color: white;
+}
+
+/* Container For Logger */
+.logger-container {
+    margin-top: 15px;
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 350px;
+}

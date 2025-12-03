@@ -1,4 +1,4 @@
-function TextInput({ name, labelText, value, onChange, required=false }) {
+function TextInput({name, labelText, value, onChange, required = false}) {
     const id = `text-input-${labelText.toLowerCase()}`;
 
     return (

@@ -1,4 +1,4 @@
-function Select({ name, labelText, value, onChange, options, required=false }) {
+function Select({name, labelText, value, onChange, options, required = false}) {
     const id = `select-${labelText.toLowerCase()}`;
 
     return (
@@ -12,7 +12,8 @@ function Select({ name, labelText, value, onChange, options, required=false }) {
                 onChange={onChange}
                 required={required}
             >
-                {options.map((option) => <option key={self.crypto.randomUUID()} value={option.value}>{option.label}</option>)}
+                {options.map((option) => <option key={self.crypto.randomUUID()}
+                                                 value={option.value}>{option.label}</option>)}
             </select>
         </div>
     );

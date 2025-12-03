@@ -1,9 +1,9 @@
-import { useState } from "react";
+import {useState} from "react";
 import TextInput from "./TextInput.jsx";
 import Select from "./Select.jsx";
 import TextArea from "./TextArea.jsx";
 
-function Form({ data, setNotes }) {
+function Form({data, setNotes}) {
     const defaultFormData = {
         title: "",
         priority: data.priorities.filter((priority) => priority.default)[0].value,
@@ -18,20 +18,20 @@ function Form({ data, setNotes }) {
     }
 
     function handleChange(event) {
-        setFormData((current) => ({ ...current, [event.target.name]: event.target.value}));
+        setFormData((current) => ({...current, [event.target.name]: event.target.value}));
     }
 
     function handleSubmit(event) {
         event.preventDefault();
-        if(!formData.title || !formData.priority || !formData.category || !formData.description) {
+        if (!formData.title || !formData.priority || !formData.category || !formData.description) {
             // form data are not valid
             return;
         } else {
             setNotes((current) => ([
                 ...current, {
-                id: self.crypto.randomUUID(),
-                ...formData
-            }]));
+                    id: self.crypto.randomUUID(),
+                    ...formData
+                }]));
             resetFormData();
         }
     }
@@ -53,9 +53,9 @@ function Form({ data, setNotes }) {
                         mb-4"
                     onClick={() => setFormVisible((current) => !current)}
             >
-                { isFormVisible ? "Hide Form ✖️" : "Add New Notes ➕" }
+                {isFormVisible ? "Hide Form ✖️" : "Add New Notes ➕"}
             </button>
-            { isFormVisible && (
+            {isFormVisible && (
                 <form onSubmit={handleSubmit} className="mb-6 ">
                     <TextInput
                         name="title"
@@ -90,7 +90,8 @@ function Form({ data, setNotes }) {
                     <button
                         className="w-full bg-purple-500 text-white py-2 rounded-lg cursor-pointer hover:bg-purple-600"
                         type="submit"
-                    >Add Note</button>
+                    >Add Note
+                    </button>
                 </form>
             )}
         </>
