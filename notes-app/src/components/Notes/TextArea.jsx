@@ -1,4 +1,4 @@
-function TextArea({ name, labelText, value, onChange, required=false }) {
+function TextArea({name, labelText, value, onChange, required = false}) {
     const id = `text-area-${labelText.toLowerCase()}`;
     return (
         <div className="mb-4">

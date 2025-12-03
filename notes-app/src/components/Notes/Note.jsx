@@ -1,4 +1,4 @@
-function Note({ title, priority, category, description, color, deleteNote}) {
+function Note({title, priority, category, description, color, deleteNote}) {
     return (
         <div
             className={`p-4 bg-white rounded-lg shadow-md border-l-4 border-${color}`}
@@ -14,7 +14,8 @@ function Note({ title, priority, category, description, color, deleteNote}) {
             <button
                 className="mt-3 text-red-500 cursor-pointer transition hover:text-red-700"
                 onClick={deleteNote}
-            >🗑️Delete</button>
+            >🗑️Delete
+            </button>
         </div>
     );
 }

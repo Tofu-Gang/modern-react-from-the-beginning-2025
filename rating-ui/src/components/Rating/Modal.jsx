@@ -1,6 +1,6 @@
 import Button from "./Button.jsx";
 
-function Modal({ message, info, closeModal }) {
+function Modal({message, info, closeModal}) {
     return (
         <div className="modal-overlay">
             <div className="modal">

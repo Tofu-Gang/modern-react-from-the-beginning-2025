@@ -8,31 +8,31 @@
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 </head>
 <body>
-    <div id="root"></div>
+<div id="root"></div>
 
-    <script type="text/babel">
-        function App() {
-            const name = "John";
-            const member = true;
+<script type="text/babel">
+    function App() {
+        const name = "John";
+        const member = true;
 
-            return (
-                <div>
-                    <Header />
-                    <h2 className="title">This was done manually</h2>
-                    <label htmlFor="title">Title</label>
-                    <h3>Hello, {name}</h3>
-                    {member ? <p>Welcome Back!</p> : <p>Join Us</p>}
-                </div>
-            );
-        }
+        return (
+            <div>
+                <Header/>
+                <h2 className="title">This was done manually</h2>
+                <label htmlFor="title">Title</label>
+                <h3>Hello, {name}</h3>
+                {member ? <p>Welcome Back!</p> : <p>Join Us</p>}
+            </div>
+        );
+    }
 
-        function Header() {
-            return React.createElement("header", null, React.createElement("h1", null, "Section 3: React Fundamentals - State, hooks, events, props & more"));
-        }
+    function Header() {
+        return React.createElement("header", null, React.createElement("h1", null, "Section 3: React Fundamentals - State, hooks, events, props & more"));
+    }
 
-        const container = document.getElementById("root");
-        const root = ReactDOM.createRoot(container);
-        root.render(React.createElement(App));
-    </script>
+    const container = document.getElementById("root");
+    const root = ReactDOM.createRoot(container);
+    root.render(React.createElement(App));
+</script>
 </body>
 </html>
