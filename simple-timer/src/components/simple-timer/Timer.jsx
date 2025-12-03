@@ -1,11 +1,17 @@
-import { useState, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import Display from "./Display.jsx";
 import Controls from "./Controls.jsx";
 
 function Timer() {
     const timerRef = useRef(null);
-    const [time, setTime] = useState(0);
+    const [time, setTime] = useState(() => {
+        return Number(localStorage.getItem("time") || 0);
+    });
     const [isRunning, setRunning] = useState(false);
+
+    useEffect(() => {
+        localStorage.setItem("time", time);
+    }, [time]);
 
     function toggleTimer() {
         if(isRunning) {
@@ -26,6 +32,7 @@ function Timer() {
         setRunning(false);
         setTime(0);
         timerRef.current = null;
+        localStorage.removeItem("time");
     }
 
     return (
