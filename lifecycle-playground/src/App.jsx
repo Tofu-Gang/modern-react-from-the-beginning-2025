@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import LifecycleLogger from './components/LifecycleLogger';
+import LifecycleLogger from './components/LifecycleLogger.jsx';
 
 function App() {
     const [showLogger, setShowLogger] = useState(false);
@@ -8,7 +8,7 @@ function App() {
         <div className='container'>
             <h2>React Lifecycle Playground</h2>
 
-            {/* Toggle LifecycleLogger */}
+            {/* Toggle LifecycleLoggerClass */}
             <button
                 className='primary-btn'
                 onClick={() => setShowLogger(!showLogger)}
