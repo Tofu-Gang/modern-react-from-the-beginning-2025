@@ -1,6 +1,6 @@
 function LimitSelector({ limit, setLimit }) {
     return (
-        <>
+        <div className="controls">
             <label htmlFor="limit">Show: </label>
             <select
                 id="limit"
@@ -13,7 +13,7 @@ function LimitSelector({ limit, setLimit }) {
                 <option value="50">50</option>
                 <option value="100">100</option>
             </select>
-        </>
+        </div>
     );
 }
 
