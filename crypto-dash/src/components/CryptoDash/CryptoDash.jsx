@@ -8,23 +8,24 @@ function CryptoDash() {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        fetch(API_URL)
-            .then((response) => {
+        async function fetchCoins() {
+            try {
+                const response = await fetch(API_URL);
                 if(!response.ok) {
                     throw new Error("Failed to fetch data");
                 } else {
-                    return response.json();
+                    const data = await response.json();
+                    console.log(data);
+                    setCoins(data);
                 }
-            })
-            .then((data) => {
-                console.log(data);
-                setCoins(data);
+            } catch(error) {
+                setError(error.message);
+            } finally {
                 setLoading(false);
-            })
-            .catch((error) => {
-                setError(error);
-                setLoading(false);
-            });
+            }
+        }
+
+        fetchCoins();
     }, []);
 
     return (
