@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import CoinCard from "./CoinCard.jsx";
 
-const API_URL = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=czk&order=market_cap_desc&per_page=10&page=1&sparkline=false";
+const API_URL = import.meta.env.VITE_API_URL;
 
 function CryptoDash() {
     const [coins, setCoins] = useState([]);
@@ -11,7 +11,9 @@ function CryptoDash() {
     useEffect(() => {
         async function fetchCoins() {
             try {
-                const response = await fetch(API_URL);
+                const params = "vs_currency=czk&order=market_cap_desc&per_page=10&page=1&sparkline=false";
+                const response = await fetch(`${API_URL}?${params}`);
+
                 if(!response.ok) {
                     throw new Error("Failed to fetch data");
                 } else {
