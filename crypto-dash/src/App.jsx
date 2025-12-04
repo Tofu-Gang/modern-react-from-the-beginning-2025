@@ -1,9 +1,9 @@
+import CryptoDash from "./components/CryptoDash/CryptoDash.jsx";
+
 function App() {
 
     return (
-        <div>
-            <h1>🚀Crypto Dash</h1>
-        </div>
+        <CryptoDash />
     );
 }
 
