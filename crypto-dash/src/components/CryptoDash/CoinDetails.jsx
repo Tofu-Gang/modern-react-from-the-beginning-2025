@@ -1,6 +1,7 @@
 import { useState, useEffect} from "react";
 import {Link, useParams} from "react-router";
 import Spinner from "./Spinner.jsx";
+import CoinChart from "./CoinChart.jsx";
 
 const API_URL = import.meta.env.VITE_COIN_API_URL;
 
@@ -53,6 +54,7 @@ function CoinDetails() {
                         <h4>All-Time Low: {coin.market_data.atl.czk.toLocaleString("cs", { style: "currency", currency: "CZK"})} on {new Date(coin.market_data.atl_date.czk).toLocaleDateString("cs")}</h4>
                         <h4>Last Updated: { new Date(coin.last_updated).toLocaleDateString("cs")}</h4>
                     </div>
+                    <CoinChart coinId={coin.id}/>
                     <div className="coin-details-links">
                         {coin.links.homepage[0] && (
                             <p>🌐 <a href={coin.links.homepage[0]} target="_blank" rel="noopener noreferer">Website</a></p>)}
