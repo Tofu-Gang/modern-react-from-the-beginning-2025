@@ -3,6 +3,7 @@ import CoinCard from "./CoinCard.jsx";
 import LimitSelector from "./LimitSelector.jsx";
 import FilterInput from "./FilterInput.jsx";
 import OrderBySelector from "./OrderBySelector.jsx";
+import Spinner from "./Spinner.jsx";
 
 const API_URL = import.meta.env.VITE_COINS_API_URL;
 const ORDER_BY_OPTIONS = [{
@@ -82,7 +83,7 @@ function CryptoDash() {
     return (
         <div>
             <h1>🚀Crypto Dash</h1>
-            {isLoading && <p>Loading...</p>}
+            {isLoading && <Spinner color="white"/>}
             {error && <div className="error">{error}</div>}
 
             <div className="top-controls">
