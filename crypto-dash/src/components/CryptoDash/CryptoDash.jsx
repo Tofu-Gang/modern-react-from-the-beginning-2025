@@ -4,7 +4,7 @@ import LimitSelector from "./LimitSelector.jsx";
 import FilterInput from "./FilterInput.jsx";
 import OrderBySelector from "./OrderBySelector.jsx";
 
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_COINS_API_URL;
 const ORDER_BY_OPTIONS = [{
     id: self.crypto.randomUUID(),
     label: "Market Cap (High To Low)",
