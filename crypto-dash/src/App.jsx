@@ -1,9 +1,12 @@
-import CryptoDash from "./components/CryptoDash/CryptoDash.jsx";
+import Home from "./pages/Home.jsx";
+import { Routes, Route } from "react-router";
 
 function App() {
 
     return (
-        <CryptoDash />
+        <Routes>
+            <Route path="/" element={<Home />} />
+        </Routes>
     );
 }
 
