@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Spinner from "./Spinner.jsx";
 import { Line } from "react-chartjs-2";
 import {
     Chart as ChartJS,
@@ -58,9 +59,34 @@ function CoinChart({ coinId }) {
     }, [coinId]);
 
     return (
-        <>
-            Chart
-        </>
+        <div style={{marginTop: "30px"}}>
+            { loading && <Spinner />}
+            {!loading && <Line
+                data={chartData}
+                options={{
+                    responsive: true,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { mode: "index", intersect: false }
+                    },
+                    scales: {
+                        x: {
+                            type: "time",
+                            time: { unit: "day" },
+                            ticks: {
+                                autoSkip: true,
+                                maxTicksLimit: 7
+                            }
+                        },
+                        y: {
+                            ticks: {
+                                callback: (value) => value.toLocaleString("cs", { style: "currency", currency: "CZK"})
+                            }
+                        }
+                    }
+                }}
+            />}
+        </div>
     );
 }
 
