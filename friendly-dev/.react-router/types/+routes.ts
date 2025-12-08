@@ -3,31 +3,63 @@
 import "react-router"
 
 declare module "react-router" {
-  interface Register {
-    pages: Pages
-    routeFiles: RouteFiles
-    routeModules: RouteModules
-  }
+    interface Register {
+        pages: Pages
+        routeFiles: RouteFiles
+        routeModules: RouteModules
+    }
 }
 
 type Pages = {
-  "/": {
-    params: {};
-  };
+    "/": {
+        params: {};
+    };
+    "/about": {
+        params: {};
+    };
+    "/contact": {
+        params: {};
+    };
+    "/projects": {
+        params: {};
+    };
+    "/blog": {
+        params: {};
+    };
 };
 
 type RouteFiles = {
-  "root.tsx": {
-    id: "root";
-    page: "/";
-  };
-  "routes/home.tsx": {
-    id: "routes/home";
-    page: "/";
-  };
+    "root.tsx": {
+        id: "root";
+        page: "/" | "/about" | "/contact" | "/projects" | "/blog";
+    };
+    "routes/home/index.tsx": {
+        id: "routes/home/index";
+        page: "/";
+    };
+    "./routes/about/index.tsx": {
+        id: "routes/about/index";
+        page: "/about";
+    };
+    "./routes/contact/index.tsx": {
+        id: "routes/contact/index";
+        page: "/contact";
+    };
+    "./routes/projects/index.tsx": {
+        id: "routes/projects/index";
+        page: "/projects";
+    };
+    "./routes/blog/index.tsx": {
+        id: "routes/blog/index";
+        page: "/blog";
+    };
 };
 
 type RouteModules = {
-  "root": typeof import("./app/root.tsx");
-  "routes/home": typeof import("./app/routes/home.tsx");
+    "root": typeof import("./app/root.tsx");
+    "routes/home/index": typeof import("./app/routes/home/index.tsx");
+    "routes/about/index": typeof import("./app/./routes/about/index.tsx");
+    "routes/contact/index": typeof import("./app/./routes/contact/index.tsx");
+    "routes/projects/index": typeof import("./app/./routes/projects/index.tsx");
+    "routes/blog/index": typeof import("./app/./routes/blog/index.tsx");
 };
