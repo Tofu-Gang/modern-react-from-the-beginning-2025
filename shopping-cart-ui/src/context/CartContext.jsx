@@ -23,7 +23,15 @@ export function CartProvider({ children }) {
         });
     }
 
-    return <CartContext.Provider value={{ cart, addToCart }} >{children}</CartContext.Provider>
+    function removeFromCart(id) {
+        setCart((current) => current.filter((item) => item.id !== id));
+    }
+
+    function clearCart() {
+        setCart([]);
+    }
+
+    return <CartContext.Provider value={{ cart, addToCart, removeFromCart, clearCart }} >{children}</CartContext.Provider>
 }
 
 export function useCart() {
