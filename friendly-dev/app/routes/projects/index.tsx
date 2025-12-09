@@ -1,6 +1,7 @@
 import type { Route } from "./+types/index";
+import type { Project } from "~/types";
 
-export async function loader({ request }:Route.LoaderArgs):Promise<any> {
+export async function loader({ request }:Route.LoaderArgs):Promise<{ projects: Project[] }> {
     const response = await fetch("http://localhost:8000/projects");
     const data = await response.json();
     return { projects: data };
@@ -14,8 +15,7 @@ export function meta({}: Route.MetaArgs) {
 }
 
 function ProjectsPage({ loaderData }: Route.ComponentProps) {
-    const { projects } = loaderData;
-    console.log("PRDEL!!!", projects);
+    const { projects } = loaderData as { projects: Project[] };
     return <h2 className="text-3xl font-bold text-white mb-8">🚀Projects</h2>;
 }
 
