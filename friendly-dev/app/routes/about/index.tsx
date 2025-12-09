@@ -8,11 +8,7 @@ export function meta({}: Route.MetaArgs) {
 }
 
 function AboutPage() {
-    return (
-        <section>
-            <h2 className="text-3xl font-bold text-white mb-2">Hey, this is Tofu Gang SW!👋</h2>
-        </section>
-    );
+    return <h2 className="text-3xl font-bold text-white mb-2">Hey, this is Tofu Gang SW!👋</h2>;
 }
 
 export default AboutPage;
