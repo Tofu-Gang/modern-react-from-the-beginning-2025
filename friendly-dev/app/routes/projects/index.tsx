@@ -1,4 +1,10 @@
-import type {Route} from "../../../.react-router/types/app/routes/home/+types";
+import type { Route } from "./+types/index";
+
+export async function loader({ request }:Route.LoaderArgs):Promise<any> {
+    const response = await fetch("http://localhost:8000/projects");
+    const data = await response.json();
+    return { projects: data };
+}
 
 export function meta({}: Route.MetaArgs) {
     return [
@@ -7,7 +13,9 @@ export function meta({}: Route.MetaArgs) {
     ];
 }
 
-function ProjectsPage() {
+function ProjectsPage({ loaderData }: Route.ComponentProps) {
+    const { projects } = loaderData;
+    console.log("PRDEL!!!", projects);
     return <h2 className="text-3xl font-bold text-white mb-8">🚀Projects</h2>;
 }
 
