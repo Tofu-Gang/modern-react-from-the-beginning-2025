@@ -3,6 +3,7 @@ import type { Route } from "./+types/index";
 import type { Project } from "~/types";
 import ProjectCard from "../../components/ProjectCard";
 import Pagination from "../../components/Pagination";
+import Categories from "../../components/Categories";
 
 // server loader
 export async function loader({ request }:Route.LoaderArgs):Promise<{ projects: Project[] }> {
@@ -18,19 +19,27 @@ export function meta({}: Route.MetaArgs) {
     ];
 }
 
+const DEFAULT_CATEGORY = "All";
+
 function ProjectsPage({ loaderData }: Route.ComponentProps) {
-    const { projects } = loaderData as { projects: Project[] };
+    const [selectedCategory, setSelectedCategory] = useState(DEFAULT_CATEGORY);
     const [currentPage, setCurrentPage] = useState(1);
+    const { projects } = loaderData as { projects: Project[] };
+
+    const categories = [DEFAULT_CATEGORY, ...new Set(projects.map((project) => project.category))];
+    const filteredProjects = selectedCategory === DEFAULT_CATEGORY ? projects : projects.filter((project) => project.category === selectedCategory);
+
     const projectsPerPage = 10;
-    const totalPages = Math.ceil(projects.length / projectsPerPage);
+    const totalPages = Math.ceil(filteredProjects.length / projectsPerPage);
     // Get current page projects
     const indexOfLast = currentPage * projectsPerPage;
     const indexOfFirst = indexOfLast - projectsPerPage;
-    const currentProjects = projects.slice(indexOfFirst, indexOfLast);
+    const currentProjects = filteredProjects.slice(indexOfFirst, indexOfLast);
 
     return(
         <>
             <h2 className="text-3xl font-bold text-white mb-8">🚀Projects</h2>
+            <Categories categories={categories} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} setCurrentPage={setCurrentPage} />
             <div className="grid gap-6 sm:grid-cols-2">
                 {currentProjects.map((project) => <ProjectCard key={project.id} project={project} />)}
             </div>
