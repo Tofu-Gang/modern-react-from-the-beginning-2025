@@ -1,6 +1,7 @@
 import type { Route } from "./+types/index";
 import type { Project } from "~/types";
 import FeaturedProjects from "../../components/FeaturedProjects";
+import AboutPreview from "../../components/AboutPreview";
 
 export function meta({}: Route.MetaArgs) {
     return [
@@ -17,7 +18,12 @@ export async function loader({ request }:Route.LoaderArgs):Promise<{ projects:Pr
 
 function HomePage({ loaderData }:Route.ComponentProps) {
     const { projects } = loaderData;
-    return <FeaturedProjects projects={projects} count={2} />;
+    return (
+        <>
+            <FeaturedProjects projects={projects} count={2} />
+            <AboutPreview />
+        </>
+    );
 }
 
 export default HomePage;
