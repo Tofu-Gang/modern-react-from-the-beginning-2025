@@ -1,6 +1,6 @@
+import PostCard from "../../components/PostCard";
 import type { Route } from "./+types/index";
 import type { PostMeta } from "~/types";
-import { Link } from "react-router";
 
 export function meta({}: Route.MetaArgs) {
     return [
@@ -22,7 +22,12 @@ export async function loader({ request }:Route.LoaderArgs):Promise<{ posts: Post
 
 function BlogPage({ loaderData }:Route.ComponentProps) {
     const { posts } = loaderData;
-    return <section><h2 className="text-3xl font-bold text-white mb-8">📝Blog</h2></section>;
+    return (
+        <div className="max-w-3xl mx-auto mt-10 px-6 py-6 bg-gray-900">
+            <h2 className="text-3xl font-bold text-white mb-8">📝Blog</h2>
+            {posts.map((post) => <PostCard key={post.slug} post={post} />)}
+        </div>
+    );
 }
 
 export default BlogPage;
