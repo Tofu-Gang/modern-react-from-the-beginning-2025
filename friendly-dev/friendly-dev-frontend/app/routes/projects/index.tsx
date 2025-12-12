@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { Route } from "./+types/index";
-import type { Project } from "~/types";
+import type {Project, StrapiProject, StrapiResponse} from "~/types";
 import ProjectCard from "../../components/ProjectCard";
 import Pagination from "../../components/Pagination";
 import Categories from "../../components/Categories";
@@ -9,17 +9,17 @@ import { AnimatePresence, motion } from "framer-motion";
 // server loader
 export async function loader({ request }:Route.LoaderArgs):Promise<{ projects: Project[] }> {
     const response = await fetch(`${import.meta.env.VITE_API_URL}/projects?populate=*`);
-    const json = await response.json();
-    const projects = json.data.map((item) => ({
-        id: item.id,
-        documentId: item.documentId,
-        title: item.title,
-        description: item.description,
-        image: item.image?.url ? `${import.meta.env.VITE_STRAPI_URL}${item.image.url}` : "/images/no-image.png",
-        url: item.url,
-        date: item.date,
-        category: item.category,
-        featured: item.featured
+    const json:StrapiResponse<StrapiProject> = await response.json();
+    const projects = json.data.map((strapiProject) => ({
+        id: strapiProject.id,
+        documentId: strapiProject.documentId,
+        title: strapiProject.title,
+        description: strapiProject.description,
+        image: strapiProject.image?.url ? `${import.meta.env.VITE_STRAPI_URL}${strapiProject.image.url}` : "/images/no-image.png",
+        url: strapiProject.url,
+        date: strapiProject.date,
+        category: strapiProject.category,
+        featured: strapiProject.featured
     }))
     return { projects };
 }
