@@ -1,5 +1,5 @@
 import type { Route } from "./+types/index";
-import type { Project, Post, StrapiResponse, StrapiProject } from "~/types";
+import type { Project, Post, StrapiResponse, StrapiProject, StrapiPost } from "~/types";
 import FeaturedProjects from "../../components/FeaturedProjects";
 import AboutPreview from "../../components/AboutPreview";
 import LatestPosts from "../../components/LatestPosts";
@@ -15,14 +15,14 @@ export async function loader({ request }:Route.LoaderArgs):Promise<{ projects:Pr
     const url = new URL(request.url);
     const [projectResponse, postsResponse] = await Promise.all([
         fetch(`${import.meta.env.VITE_API_URL}/projects?filters[featured][$eq]=true&populate=*`),
-        fetch(new URL("/posts-meta.json", url))
+        fetch(`${import.meta.env.VITE_API_URL}/posts?populate=image&sort[0]=date:desc`)
     ]);
 
     if (!projectResponse.ok || !postsResponse.ok) {
         throw new Error("Failed to fetch projects or posts");
     } else {
         const projectJson:StrapiResponse<StrapiProject> = await projectResponse.json();
-        const postJson = await postsResponse.json();
+        const postJson:StrapiResponse<StrapiPost> = await postsResponse.json();
 
         const projects = projectJson.data.map((item) => ({
             id: item.id,
@@ -35,7 +35,17 @@ export async function loader({ request }:Route.LoaderArgs):Promise<{ projects:Pr
             category: item.category,
             featured: item.featured
         }));
-        return { projects, posts: postJson };
+
+        const posts = postJson.data.map((item) => ({
+            id: item.id,
+            title: item.title,
+            slug: item.slug,
+            excerpt: item.excerpt,
+            date: item.date,
+            body: item.body,
+            image: item.image?.url ? `${import.meta.env.VITE_STRAPI_URL}${item.image.url}` : "/images/no-image.png"
+        }));
+        return { projects, posts };
     }
 }
 

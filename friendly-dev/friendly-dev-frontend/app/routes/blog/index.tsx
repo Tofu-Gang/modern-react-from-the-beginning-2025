@@ -17,7 +17,6 @@ export async function loader({ request }:Route.LoaderArgs):Promise<{ posts: Post
     const json:StrapiResponse<StrapiPost> = await response.json();
     const posts = json.data.map((item) => ({
         id: item.id,
-        documentId: item.documentId,
         title: item.title,
         slug: item.slug,
         excerpt: item.excerpt,
