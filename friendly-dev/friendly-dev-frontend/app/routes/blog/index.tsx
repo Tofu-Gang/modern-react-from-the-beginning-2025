@@ -3,7 +3,7 @@ import PostCard from "../../components/PostCard";
 import Pagination from "../../components/Pagination";
 import PostFilter from "../../components/PostFilter";
 import type { Route } from "./+types/index";
-import type { PostMeta, StrapiResponse, StrapiPost } from "~/types";
+import type { Post, StrapiResponse, StrapiPost } from "~/types";
 
 export function meta({}: Route.MetaArgs) {
     return [
@@ -12,7 +12,7 @@ export function meta({}: Route.MetaArgs) {
     ];
 }
 
-export async function loader({ request }:Route.LoaderArgs):Promise<{ posts: PostMeta[] }> {
+export async function loader({ request }:Route.LoaderArgs):Promise<{ posts: Post[] }> {
     const response = await fetch(`${import.meta.env.VITE_API_URL}/posts?populate=image&sort=date:desc`);
     const json:StrapiResponse<StrapiPost> = await response.json();
     const posts = json.data.map((item) => ({
