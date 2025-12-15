@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchGitHubUser } from "../api/github.ts";
 import * as React from "react";
@@ -8,7 +8,10 @@ import RecentSearches from "./RecentSearches.tsx";
 function UserSearch() {
     const [username, setUsername] = useState("");
     const [submittedUsername, setSubmittedUsername] = useState("");
-    const [recentUsers, setRecentUsers] = useState<string[]>([]);
+    const [recentUsers, setRecentUsers] = useState<string[]>(() => {
+        const stored = localStorage.getItem("recentUsers");
+        return stored ? JSON.parse(stored) : [];
+    });
     const { data, isLoading, isError, error } = useQuery({
         queryKey: ["users", submittedUsername],
         queryFn: () => fetchGitHubUser(submittedUsername),
@@ -27,6 +30,10 @@ function UserSearch() {
             })
         }
     }
+
+    useEffect(() => {
+        localStorage.setItem("recentUsers", JSON.stringify(recentUsers));
+    }, [recentUsers]);
 
     return (
         <>
