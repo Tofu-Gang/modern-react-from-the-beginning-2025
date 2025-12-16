@@ -20,11 +20,12 @@ export async function searchGitHubUser(query:string) {
 }
 
 // Check if following a user on GitHub
-export async function checkIfFollowingUser(username:string) {
+export async function checkIfFollowingGitHubUser(username:string) {
     const token = prompt("insert token");
     const response = await fetch(
         `${import.meta.env.VITE_GITHUB_API_URL}/user/following/${username}`,
         {
+            method: "GET",
             headers: {
                 Authorization: `Bearer ${token}`,
                 Accept: "application/vnd.github+json"
@@ -38,7 +39,29 @@ export async function checkIfFollowingUser(username:string) {
         // not following
         return false;
     } else {
-        const errorData = await response.json().catch(() => null);
+        const errorData = await response.json();
         throw new Error(errorData.message || "Failed to check follow status!");
+    }
+}
+
+// Follow user on GitHub
+export async function followGitHubUser(username:string) {
+    const token = prompt("insert token");
+    const response = await fetch(
+        `${import.meta.env.VITE_GITHUB_API_URL}/user/following/${username}`,
+        {
+            method: "PUT",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                Accept: "application/vnd.github+json",
+                "Content-Type": "application/json"
+            }
+        });
+
+    if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Failed to follow user!");
+    } else {
+        return true;
     }
 }
