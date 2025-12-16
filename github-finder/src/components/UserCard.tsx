@@ -2,6 +2,7 @@ import type { GitHubUser } from "../types.ts";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { checkIfFollowingGitHubUser, followGitHubUser, unfollowGitHubUser } from "../api/github.ts";
 import { FaUserMinus, FaGithubAlt, FaUserPlus } from "react-icons/fa";
+import { toast } from "sonner";
 
 function UserCard({ user }: {user:GitHubUser}) {
     // query to check if user is following
@@ -14,22 +15,22 @@ function UserCard({ user }: {user:GitHubUser}) {
     const followMutation = useMutation({
         mutationFn: () => followGitHubUser(user.login),
         onSuccess: () => {
-            console.log(`You are now following ${user.login}`);
+            toast.success(`You are now following ${user.login}`);
             refetch();
         },
         onError: (error) => {
-            console.log(error.message);
+            toast.error(error.message);
         }
     });
     // mutation to unfollow the user
     const unfollowMutation = useMutation({
         mutationFn: () => unfollowGitHubUser(user.login),
         onSuccess: () => {
-            console.log(`You are no longer following ${user.login}`);
+            toast.success(`You are no longer following ${user.login}`);
             refetch();
         },
         onError: (error) => {
-            console.log(error.message);
+            toast.error(error.message);
         }
     });
 
