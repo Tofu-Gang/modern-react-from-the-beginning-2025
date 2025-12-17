@@ -11,4 +11,9 @@ node_modules
 dist
 dist-ssr
 *.local
+count.txt
 .react-router
+.env
+.nitro
+.tanstack
+.wrangler
