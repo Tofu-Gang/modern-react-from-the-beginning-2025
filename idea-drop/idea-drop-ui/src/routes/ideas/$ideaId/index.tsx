@@ -1,15 +1,11 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import type { Idea } from "@/types.ts";
+import api from "@/lib/axios.ts";
 
 async function fetchIdea(ideaId:string): Promise<Idea> {
-    const response = await fetch(`/api/ideas/${ideaId}`);
-
-    if(!response.ok) {
-        throw new Error(`Failed to fetch idea ${ideaId}`);
-    } else {
-        return response.json();
-    }
+    const response = await api.get(`/ideas/${ideaId}`);
+    return response.data;
 }
 
 function ideaQueryOptions(ideaId:string) {
