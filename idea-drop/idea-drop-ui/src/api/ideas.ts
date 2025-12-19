@@ -1,4 +1,4 @@
-import type { Idea } from "@/types.ts";
+import type { Idea, FormIdeaType, FormUpdatedIdeaType } from "@/types.ts";
 import api from "@/lib/axios.ts";
 
 export async function fetchIdeas(): Promise<Idea[]> {
@@ -11,14 +11,7 @@ export async function fetchIdea(ideaId:string): Promise<Idea> {
     return response.data;
 }
 
-type NewFormIdeaType = {
-    title: string;
-    summary: string;
-    description: string;
-    tags: string[];
-}
-
-export async function createIdea(newIdea:NewFormIdeaType):Promise<Idea> {
+export async function createIdea(newIdea:FormIdeaType):Promise<Idea> {
     const response = await api.post("/ideas", {
         ...newIdea,
         createdAt: new Date().toISOString()
@@ -28,4 +21,9 @@ export async function createIdea(newIdea:NewFormIdeaType):Promise<Idea> {
 
 export async function deleteIdea(ideaId:string):Promise<void> {
     await api.delete(`/ideas/${ideaId}`);
+}
+
+export async function updateIdea(ideaId:string, updatedData:FormUpdatedIdeaType):Promise<Idea> {
+    const response = await api.put(`/ideas/${ideaId}`, updatedData);
+    return response.data;
 }
