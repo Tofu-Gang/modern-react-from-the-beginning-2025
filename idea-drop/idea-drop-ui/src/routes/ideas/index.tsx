@@ -1,12 +1,6 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
-import type { Idea } from "@/types.ts";
-import api from "@/lib/axios.ts";
-
-async function fetchIdeas(): Promise<Idea[]> {
-    const response = await api.get("/ideas");
-    return response.data;
-}
+import { fetchIdeas } from "@/api/ideas.ts";
 
 function ideasQueryOptions() {
     return queryOptions({
@@ -31,6 +25,7 @@ export const Route = createFileRoute("/ideas/")({
 
 function IdeasPage() {
     const { data: ideas } = useSuspenseQuery(ideasQueryOptions());
+
     return (
         <div className="p-4">
             <h1 className="text-2xl font-bold mb-4">Ideas</h1>
