@@ -71,18 +71,6 @@
         "ai"
       ],
       "createdAt": "2025-04-24T13:10:00.000Z"
-    },
-    {
-      "id": "93ca",
-      "title": "Brad's Idea",
-      "summary": "lorem ipsum",
-      "description": "lorem ipsum dolor amet sit",
-      "tags": [
-        "web",
-        "webdev",
-        "programming"
-      ],
-      "createdAt": "2025-12-19T13:10:00.000Z"
     }
   ]
 }

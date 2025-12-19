@@ -25,3 +25,7 @@ export async function createIdea(newIdea:NewFormIdeaType):Promise<Idea> {
     });
     return response.data;
 }
+
+export async function deleteIdea(ideaId:string):Promise<void> {
+    await api.delete(`/ideas/${ideaId}`);
+}

@@ -27,11 +27,10 @@ export const Route = createFileRoute('/')({
 });
 
 function HomePage() {
-    const { data: ideas } = useSuspenseQuery(ideasQueryOptions());
-    const sortedIdeas = [...ideas].sort((a:Idea, b:Idea) => {
+    const { data } = useSuspenseQuery(ideasQueryOptions());
+    const latestIdeas = [...data].sort((a:Idea, b:Idea) => {
         return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
-    });
-    const latestIdeas = sortedIdeas.slice(0, 3);
+    }).slice(0, 3);
 
     return (
         <div className="flex flex-col md:flex-row items-start justify-between gap-10 p-6 text-blue-600">
