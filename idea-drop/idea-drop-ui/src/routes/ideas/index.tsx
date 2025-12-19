@@ -2,6 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { fetchIdeas } from "@/api/ideas.ts";
 import IdeaCard from "@/components/IdeaCard.tsx";
+import type { Idea } from "@/types.ts";
 
 function ideasQueryOptions() {
     return queryOptions({
@@ -25,7 +26,8 @@ export const Route = createFileRoute("/ideas/")({
 })
 
 function IdeasPage() {
-    const { data: ideas } = useSuspenseQuery(ideasQueryOptions());
+    const { data } = useSuspenseQuery(ideasQueryOptions());
+    const ideas = [...data].sort((a:Idea, b:Idea) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
 
     return (
         <div className="p-4">
