@@ -1,21 +1,41 @@
-import {createFileRoute} from '@tanstack/react-router'
+import { createFileRoute, Link } from '@tanstack/react-router'
+import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
+import type { Idea } from "@/types.ts";
 
-async function fetchIdea(ideaId:string) {
+async function fetchIdea(ideaId:string): Promise<Idea> {
     const response = await fetch(`/api/ideas/${ideaId}`);
 
     if(!response.ok) {
         throw new Error(`Failed to fetch idea ${ideaId}`);
     } else {
-        return await response.json();
+        return response.json();
     }
+}
+
+function ideaQueryOptions(ideaId:string) {
+    return queryOptions({
+        queryKey: ["idea", ideaId],
+        queryFn: () => fetchIdea(ideaId)
+    });
 }
 
 export const Route = createFileRoute('/ideas/$ideaId/')({
     component: IdeaDetailsPage,
-    loader: async ({ params }) => fetchIdea(params.ideaId)
+    loader: async ({ params, context:{queryClient} }) => {
+        return queryClient.ensureQueryData(ideaQueryOptions(params.ideaId));
+    }
 })
 
 function IdeaDetailsPage() {
-    const idea = Route.useLoaderData();
-    return <div>{idea.title}</div>
+    const { ideaId } = Route.useParams();
+    const { data: idea } = useSuspenseQuery(ideaQueryOptions(ideaId));
+    return (
+        <div className="p-4">
+            <Link to="/ideas" className="text-blue-500 underline block mb-4">
+                Back To Ideas
+            </Link>
+            <h2 className="text-2xl font-bold">{idea.title}</h2>
+            <p className="mt-2">{idea.description}</p>
+        </div>
+    );
 }
