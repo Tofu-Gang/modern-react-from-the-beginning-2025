@@ -3,6 +3,7 @@ import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 import { TanStackDevtools } from '@tanstack/react-devtools'
 import { QueryClient } from "@tanstack/react-query";
 import Header from "@/components/Header.tsx";
+import NotFound from "@/components/NotFound.tsx";
 
 type RouterContext = {
     queryClient: QueryClient
@@ -20,7 +21,8 @@ export const Route = createRootRouteWithContext<RouterContext>()({
             }
         ]
     }),
-    component: RootLayout
+    component: RootLayout,
+    notFoundComponent: NotFound
 })
 
 function RootLayout() {
