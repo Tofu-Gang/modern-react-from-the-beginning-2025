@@ -7,8 +7,8 @@ import IdeaCard from "@/components/IdeaCard.tsx";
 
 function ideasQueryOptions() {
     return queryOptions({
-        queryKey: ["ideas"],
-        queryFn: fetchIdeas
+        queryKey: ["ideas", { limit: 3 }],
+        queryFn: () => fetchIdeas(3)
     });
 }
 
@@ -27,10 +27,7 @@ export const Route = createFileRoute('/')({
 });
 
 function HomePage() {
-    const { data } = useSuspenseQuery(ideasQueryOptions());
-    const latestIdeas = [...data].sort((a:Idea, b:Idea) => {
-        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
-    }).slice(0, 3);
+    const { data: ideas } = useSuspenseQuery(ideasQueryOptions());
 
     return (
         <div className="flex flex-col md:flex-row items-start justify-between gap-10 p-6 text-blue-600">
@@ -45,8 +42,8 @@ function HomePage() {
             <section className="flex-1">
                 <h2 className="text-2xl font-semibold mb-4 text-gray-800">Latest Ideas</h2>
                 <div className="space-y-6">
-                    {latestIdeas.map((idea) => (
-                        <IdeaCard key={idea.id} idea={idea} button={false} />
+                    {ideas.map((idea:Idea) => (
+                        <IdeaCard key={idea._id} idea={idea} button={false} />
                     ))}
                 </div>
                 <div className="mt-6">
