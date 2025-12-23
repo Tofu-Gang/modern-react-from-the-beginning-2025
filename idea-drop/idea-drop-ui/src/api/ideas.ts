@@ -1,8 +1,10 @@
 import type { Idea, FormIdeaType, FormUpdatedIdeaType } from "@/types.ts";
 import api from "@/lib/axios.ts";
 
-export async function fetchIdeas(): Promise<Idea[]> {
-    const response = await api.get("/ideas");
+export async function fetchIdeas(limit: number=-1): Promise<Idea[]> {
+    const response = await api.get("/ideas", {
+        params: limit ? { _limit: limit } : {}
+    });
     return response.data;
 }
 
