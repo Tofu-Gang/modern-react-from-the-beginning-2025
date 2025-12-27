@@ -50,6 +50,60 @@ router.post("/register", async(request, response, next) => {
     }
 });
 
+// @route           POST api/auth/login
+// @description     Authenticate user
+// @access          Public
+router.post("/login", async (request, response, next) => {
+    try {
+        const { email, password } = request.body;
+
+        if(!email || !password) {
+            response.status(400);
+            throw new Error("Email and password are required!");
+        } else {
+            // Find user
+            const user = await User.findOne({ email });
+
+            if(!user) {
+                response.status(401);
+                throw new Error("Invalid credentials!");
+            } else {
+                // Check if password matches
+                const isMatch = await user.matchPassword(password);
+
+                if(!isMatch) {
+                    response.status(401);
+                    throw new Error("Invalid credentials!");
+                } else {
+                    // Create Tokens
+                    const payload = { userId: user._id.toString() };
+                    const accessToken = await generateToken(payload, "1m");
+                    const refreshToken = await generateToken(payload, "30d");
+                    // Set refresh token in HTTP-Only cookie
+                    response.cookie("refreshToken", refreshToken, {
+                        httpOnly: true,
+                        secure: process.env.NODE_ENV === "production",
+                        sameSite: "none",
+                        maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days
+                    });
+
+                    response.status(201).json({
+                        accessToken,
+                        user: {
+                            id: user._id,
+                            name: user.name,
+                            email: user.email
+                        }
+                    });
+                }
+            }
+        }
+    } catch(error) {
+        console.log(error);
+        next(error);
+    }
+});
+
 // @route           POST api/auth/logout
 // @description     Logout user and clear refresh token
 // @access          Private
