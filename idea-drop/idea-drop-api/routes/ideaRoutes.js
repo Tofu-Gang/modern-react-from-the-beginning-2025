@@ -1,6 +1,7 @@
 import express from "express";
 import Idea from "../models/Idea.js";
 import mongoose from "mongoose";
+import { protect } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
@@ -54,9 +55,9 @@ router.get("/:id", async (request, response, next) => {
 // @route           POST /api/ideas
 // @description     Create new idea
 // @access          Public
-router.post("/", async (request, response, next) => {
+router.post("/", protect, async (request, response, next) => {
     try {
-        const { title, summary, description, tags } = request.body;
+        const { title, summary, description, tags } = request.body || {};
 
         if(!title?.trim() || !summary?.trim() || !description?.trim()) {
             response.status(400);
@@ -82,7 +83,7 @@ router.post("/", async (request, response, next) => {
 // @route           DELETE /api/ideas/:id
 // @description     Delete a single idea
 // @access          Public
-router.delete("/:id", async (request, response, next) => {
+router.delete("/:id", protect, async (request, response, next) => {
     const { id } = request.params;
 
     if(!mongoose.Types.ObjectId.isValid(id)) {
@@ -108,7 +109,7 @@ router.delete("/:id", async (request, response, next) => {
 // @route           PUT /api/ideas/:id
 // @description     Update a single idea
 // @access          Public
-router.put("/:id", async(request, response, next) => {
+router.put("/:id", protect, async(request, response, next) => {
     try {
         const { id } = request.params;
 
@@ -116,7 +117,7 @@ router.put("/:id", async(request, response, next) => {
             response.status(404);
             throw new Error("Idea not found!");
         } else {
-            const { title, summary, description, tags } = request.body;
+            const { title, summary, description, tags } = request.body || {};
 
             if(!title?.trim() || !summary?.trim() || !description?.trim()) {
                 response.status(400);

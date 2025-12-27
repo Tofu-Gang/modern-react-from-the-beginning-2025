@@ -11,7 +11,7 @@ const router = express.Router();
 // @access          Public
 router.post("/register", async(request, response, next) => {
     try {
-        const { name, email, password } = request.body;
+        const { name, email, password } = request.body || {};
 
         if(!name || !email || !password) {
             response.status(400);
@@ -57,7 +57,7 @@ router.post("/register", async(request, response, next) => {
 // @access          Public
 router.post("/login", async (request, response, next) => {
     try {
-        const { email, password } = request.body;
+        const { email, password } = request.body || {};
 
         if(!email || !password) {
             response.status(400);
