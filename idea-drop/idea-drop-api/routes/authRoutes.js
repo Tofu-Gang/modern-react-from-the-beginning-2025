@@ -32,7 +32,8 @@ router.post("/register", async(request, response, next) => {
                 response.cookie("refreshToken", refreshToken, {
                     httpOnly: true,
                     secure: process.env.NODE_ENV === "production",
-                    sameSite: "none",
+                    // secure and sameSite cannot be false at the same time, so use lax mode for development
+                    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
                     maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days
                 });
 
@@ -85,7 +86,8 @@ router.post("/login", async (request, response, next) => {
                     response.cookie("refreshToken", refreshToken, {
                         httpOnly: true,
                         secure: process.env.NODE_ENV === "production",
-                        sameSite: "none",
+                        // secure and sameSite cannot be false at the same time, so use lax mode for development
+                        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
                         maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days
                     });
 
@@ -113,7 +115,8 @@ router.post("/logout", (request, response) => {
     response.clearCookie("refreshToken", {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        sameSite: "none"
+        // secure and sameSite cannot be false at the same time, so use lax mode for development
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax"
     });
     response.status(200).json({ message: "Logged out successfully!" });
 });
