@@ -32,3 +32,13 @@ export async function logoutUser() {
         throw new Error(message);
     }
 }
+
+export async function refreshAccessToken() {
+    try {
+        const response = await api.post("/auth/refresh");
+        return response.data;
+    } catch(error:any) {
+        const message = error.response?.data?.message || "Failed to refresh access token!";
+        throw new Error(message);
+    }
+}
