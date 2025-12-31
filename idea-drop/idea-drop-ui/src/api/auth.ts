@@ -23,3 +23,12 @@ export async function loginUser(credentials:{email: string; password: string;}) 
         throw new Error(message);
     }
 }
+
+export async function logoutUser() {
+    try {
+        await api.post("/auth/logout");
+    } catch(error:any) {
+        const message = error.response?.data?.message || "Failed to logout!";
+        throw new Error(message);
+    }
+}

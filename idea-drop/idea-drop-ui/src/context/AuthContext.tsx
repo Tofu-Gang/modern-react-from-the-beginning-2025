@@ -2,7 +2,7 @@ import {createContext, type ReactNode, useContext, useState} from "react";
 
 type AuthContextType = {
     accessToken: string | null;
-    setAccessToken: (token:string) => void;
+    setAccessToken: (token:string | null) => void;
     user: {
         id: string;
         name: string;
