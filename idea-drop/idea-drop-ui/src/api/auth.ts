@@ -13,3 +13,13 @@ export async function registerUser({ name, email, password }:{name: string; emai
         throw new Error(message);
     }
 }
+
+export async function loginUser(credentials:{email: string; password: string;}) {
+    try {
+        const response = await api.post("/auth/login", credentials);
+        return response.data;
+    } catch(error:any) {
+        const message = error.response?.data?.message || "Failed to login!";
+        throw new Error(message);
+    }
+}
