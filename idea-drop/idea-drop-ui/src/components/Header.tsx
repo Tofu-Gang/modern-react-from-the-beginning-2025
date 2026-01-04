@@ -61,7 +61,7 @@ function Header() {
                         </>
                     ) : (
                         <>
-                            <span className="text-gray-700 font-medium px-2">Welcome, {user.name}</span>
+                            <span className="hidden sm:block text-gray-700 font-medium px-2">Welcome, {user.name}</span>
                             <button
                                 className="text-red-600 hover:text-red-900 font-medium transition px-3 py-2 leading-none cursor-pointer"
                                 onClick={handleLogout}
